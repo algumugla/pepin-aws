@@ -1,4 +1,4 @@
-package com.aws.codestar.projecttemplates.controller;
+package com.algumugla.pepin.controller;
 
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/")
-public class HelloWorldController {
+public class PepinController {
 
     private static final String MESSAGE_FORMAT = "Hello %s!";
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity helloWorldGet(@RequestParam(value = "name", defaultValue = "World") String name) {
+    public ResponseEntity helloPepinGet(@RequestParam(value = "name", defaultValue = "Pepin", required = false) String name) {
         return ResponseEntity.ok(createResponse(name));
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity helloWorldPost(@RequestParam(value = "name", defaultValue = "World") String name) {
+    public ResponseEntity helloPepinPost(@RequestParam(value = "name", defaultValue = "Pepin", required = false) String name) {
         return ResponseEntity.ok(createResponse(name));
     }
 
