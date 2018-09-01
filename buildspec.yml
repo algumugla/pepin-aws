@@ -7,14 +7,14 @@ phases:
       - pip install --upgrade awscli
   pre_build:
     commands:
-      - mvn clean compile test
+      - gradle clean check
   build:
     commands:
-      - mvn package
+      - gradle build
 artifacts:
   type: zip
   files:
     - appspec.yml
     - template.yml
     - scripts/*
-    - target/ROOT.war
+    - build/libs/ROOT.war
