@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class PepinController {
 
-    private static final String MESSAGE_FORMAT = "Hello %s!";
+    private static final String MESSAGE_FORMAT = "Boulot %s!";
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity helloPepinGet(@RequestParam(value = "name", defaultValue = "Pepin", required = false) String name) {
