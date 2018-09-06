@@ -1,14 +1,16 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'war'
+apply plugin: 'jacoco'
 
 group = 'com.algumugla'
 version = '0.0.1'
 
 description = """Pepin Webservice"""
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
@@ -24,8 +26,37 @@ repositories {
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.0.3.RELEASE'
     compile group: 'org.json', name: 'json', version:'20180130'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version:'5.2.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.2.0'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version:'1.2.0'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version:'1.2.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version:'5.2.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.2.0'
 }
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.1"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+
+jacocoTestCoverageVerification {
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude:  [
+                    'com/algumugla/pepin/Application.class'
+            ])
+        })
+    }
+
+    violationRules {
+        rule {
+            limit {
+                minimum = 1.0
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
