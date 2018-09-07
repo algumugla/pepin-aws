@@ -39,10 +39,6 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.2.0'
 }
 
-test {
-    useJUnitPlatform()
-}
-
 jacoco {
     toolVersion = "0.8.1"
     reportsDir = file("$buildDir/customJacocoReportDir")
